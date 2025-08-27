@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Total Sales",
+    "value": 10032628.85,
+    "formula": "SUM(SALES)",
+    "why": "Measures overall revenue generated.",
+    "details": {},
+    "warnings": [],
+    "error": null,
+    "_provenance": {
+      "kpi_slug": "total_sales",
+      "metadata_path": "metadata\\sales_data_metadata.json",
+      "plan_path": "plans\\sales_data_plan.json"
+    }
+  },
+  {
+    "name": "Average Order Value",
+    "value": 32679.57280130293,
+    "formula": "SUM(SALES) / COUNT(ORDERNUMBER)",
+    "why": "Indicates the average revenue per order.",
+    "details": {
+      "total_sales": 10032628.85,
+      "order_count": 307
+    },
+    "warnings": [],
+    "error": null,
+    "_provenance": {
+      "kpi_slug": "average_order_value",
+      "metadata_path": "metadata\\sales_data_metadata.json",
+      "plan_path": "plans\\sales_data_plan.json"
+    }
+  },
+  {
+    "name": "Sales Growth Rate",
+    "value": 0.7500107115573862,
+    "formula": "(Current Period Sales - Previous Period Sales) / Previous Period Sales",
+    "why": "Shows the percentage change in sales over time.",
+    "details": {
+      "current_period_sales": 457861.06,
+      "previous_period_sales": 261633.29
+    },
+    "warnings": [],
+    "error": null,
+    "_provenance": {
+      "kpi_slug": "sales_growth_rate",
+      "metadata_path": "metadata\\sales_data_metadata.json",
+      "plan_path": "plans\\sales_data_plan.json"
+    }
+  }
+]

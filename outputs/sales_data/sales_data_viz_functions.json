@@ -1,0 +1,23 @@
+[
+  {
+    "viz_slug": "monthly_sales_trend",
+    "title": "Monthly Sales Trend",
+    "type": "line",
+    "code_path": "D:\\Autonomous_Dashboard_Creator_Agent_Production\\outputs\\sales_data\\VIZ_codes\\monthly_sales_trend.py",
+    "created_at": "2025-08-27T15:07:10+00:00"
+  },
+  {
+    "viz_slug": "sales_by_product_line",
+    "title": "Sales by Product Line",
+    "type": "bar",
+    "code_path": "D:\\Autonomous_Dashboard_Creator_Agent_Production\\outputs\\sales_data\\VIZ_codes\\sales_by_product_line.py",
+    "created_at": "2025-08-27T15:07:15+00:00"
+  },
+  {
+    "viz_slug": "sales_by_country",
+    "title": "Sales by Country",
+    "type": "map",
+    "code_path": "D:\\Autonomous_Dashboard_Creator_Agent_Production\\outputs\\sales_data\\VIZ_codes\\sales_by_country.py",
+    "created_at": "2025-08-27T15:07:21+00:00"
+  }
+]

@@ -1,0 +1,114 @@
+[
+  {
+    "title": "Monthly Sales Trend",
+    "type": "line",
+    "why": "Helps identify seasonality and trends in sales.",
+    "query_applied": false,
+    "encodings_used": [
+      "x",
+      "y",
+      "color"
+    ],
+    "columns_used": [
+      "MONTH_ID",
+      "YEAR_ID",
+      "SALES"
+    ],
+    "warnings": [],
+    "error": null,
+    "data_path": "outputs\\sales_data\\visualizations\\data\\monthly_sales_trend.csv",
+    "figure_path": "outputs\\sales_data\\visualizations\\figures\\monthly_sales_trend.png",
+    "_stdout": null
+  },
+  {
+    "title": "Sales by Product Line",
+    "type": "bar",
+    "why": "Identifies top-selling product categories.",
+    "query_applied": "",
+    "encodings_used": {
+      "x": {
+        "field": "PRODUCTLINE",
+        "type": "string"
+      },
+      "y": {
+        "field": "Total Sales",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": null,
+        "type": "string",
+        "legend": true
+      },
+      "facet": {
+        "field": null,
+        "type": "string"
+      }
+    },
+    "columns_used": [
+      "ORDERNUMBER",
+      "QUANTITYORDERED",
+      "PRICEEACH",
+      "ORDERLINENUMBER",
+      "SALES",
+      "ORDERDATE",
+      "STATUS",
+      "QTR_ID",
+      "MONTH_ID",
+      "YEAR_ID",
+      "PRODUCTLINE",
+      "MSRP",
+      "PRODUCTCODE",
+      "CUSTOMERNAME",
+      "PHONE",
+      "ADDRESSLINE1",
+      "ADDRESSLINE2",
+      "CITY",
+      "STATE",
+      "POSTALCODE",
+      "COUNTRY",
+      "TERRITORY",
+      "CONTACTLASTNAME",
+      "CONTACTFIRSTNAME",
+      "DEALSIZE"
+    ],
+    "warnings": [],
+    "error": null,
+    "data_path": "outputs\\sales_data\\visualizations\\data\\sales_by_product_line.csv",
+    "figure_path": "outputs\\sales_data\\visualizations\\figures\\sales_by_product_line.png",
+    "_stdout": null
+  },
+  {
+    "title": "Sales by Country",
+    "type": "map",
+    "why": "Identifies key markets and regional sales variations.",
+    "query_applied": false,
+    "encodings_used": {
+      "x": {
+        "field": "COUNTRY",
+        "type": "string"
+      },
+      "y": {
+        "field": "Total Sales",
+        "type": "quantitative"
+      },
+      "color": {
+        "field": "Total Sales",
+        "type": "quantitative",
+        "legend": true
+      },
+      "facet": {
+        "field": null,
+        "type": "string"
+      }
+    },
+    "columns_used": [
+      "COUNTRY",
+      "SALES"
+    ],
+    "warnings": [],
+    "error": null,
+    "data_path": "outputs\\sales_data\\visualizations\\data\\sales_by_country.csv",
+    "figure_path": "outputs\\sales_data\\visualizations\\figures\\sales_by_country.png",
+    "_stdout": null
+  }
+]

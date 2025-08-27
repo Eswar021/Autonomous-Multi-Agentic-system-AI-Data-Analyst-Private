@@ -1,0 +1,240 @@
+{
+    "title": "Monthly Sales Trend",
+    "purpose": "Show the trend of sales over time.",
+    "why": "Visualize sales performance by month to identify seasonality and growth trends.",
+    "type": "line",
+    "data_access": {
+        "file_path": "data\\sales_data.csv",
+        "file_abspath": "D:\\Autonomous_Dashboard_Creator_Agent\\data\\sales_data.csv"
+    },
+    "query": {
+        "grain": "by MONTH & YEAR",
+        "filters": [
+            "YEAR_ID >= 2003"
+        ],
+        "aggregations": [{
+            "name": "Total Sales",
+            "expr": "SUM(SALES)"
+        }],
+        "groupby": [
+            "YEAR_ID",
+            "MONTH_ID"
+        ],
+        "sort": [{
+                "by": "YEAR_ID",
+                "order": "asc"
+            },
+            {
+                "by": "MONTH_ID",
+                "order": "asc"
+            }
+        ],
+        "limit": null
+    },
+    "encodings": {
+        "x": {
+            "field": "MONTH_ID",
+            "type": "temporal"
+        },
+        "y": {
+            "field": "Total Sales",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "YEAR_ID",
+            "type": "string",
+            "legend": true
+        },
+        "facet": {
+            "field": null,
+            "type": "string"
+        }
+    },
+    "columns_used": [{
+            "name": "MONTH_ID",
+            "dtype": "integer",
+            "semantics": [
+                "date_like",
+                "id"
+            ],
+            "description": "The month in which the order was placed."
+        },
+        {
+            "name": "SALES",
+            "dtype": "float",
+            "semantics": [
+                "date_like",
+                "money"
+            ],
+            "description": "The total sales amount for the specific product line in the order."
+        },
+        {
+            "name": "YEAR_ID",
+            "dtype": "integer",
+            "semantics": [
+                "date_like",
+                "id"
+            ],
+            "description": "The year in which the order was placed."
+        }
+    ],
+    "assumptions": [
+        "Sales data is consistently recorded each month."
+    ],
+    "notes_for_codegen": "Ensure correct date formatting for x-axis."
+}, {
+    "title": "Sales by Product Line in 2005",
+    "purpose": "Compare sales performance across different product lines.",
+    "why": "Identify top-performing product lines in 2005 to focus on.",
+    "type": "bar",
+    "data_access": {
+        "file_path": "data\\sales_data.csv",
+        "file_abspath": "D:\\Autonomous_Dashboard_Creator_Agent\\data\\sales_data.csv"
+    },
+    "query": {
+        "grain": "by PRODUCTLINE",
+        "filters": [
+            "YEAR_ID = 2005"
+        ],
+        "aggregations": [{
+            "name": "Total Sales",
+            "expr": "SUM(SALES)"
+        }],
+        "groupby": [
+            "PRODUCTLINE"
+        ],
+        "sort": [{
+            "by": "Total Sales",
+            "order": "desc"
+        }],
+        "limit": null
+    },
+    "encodings": {
+        "x": {
+            "field": "PRODUCTLINE",
+            "type": "string"
+        },
+        "y": {
+            "field": "Total Sales",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": null,
+            "type": "string",
+            "legend": true
+        },
+        "facet": {
+            "field": null,
+            "type": "string"
+        }
+    },
+    "columns_used": [{
+            "name": "PRODUCTLINE",
+            "dtype": "string",
+            "semantics": [
+                "product"
+            ],
+            "description": "The category of the product (e.g., Motorcycles, Cars)."
+        },
+        {
+            "name": "SALES",
+            "dtype": "float",
+            "semantics": [
+                "date_like",
+                "money"
+            ],
+            "description": "The total sales amount for the specific product line in the order."
+        },
+        {
+            "name": "YEAR_ID",
+            "dtype": "integer",
+            "semantics": [
+                "date_like",
+                "id"
+            ],
+            "description": "The year in which the order was placed."
+        }
+    ],
+    "assumptions": [
+        "Product line categorization is consistent."
+    ],
+    "notes_for_codegen": "Sort bars in descending order of sales."
+}, {
+    "title": "Sales by Country in 2005",
+    "purpose": "Show sales distribution across different countries.",
+    "why": "Identify key markets and potential areas for expansion.",
+    "type": "map",
+    "data_access": {
+        "file_path": "data\\sales_data.csv",
+        "file_abspath": "D:\\Autonomous_Dashboard_Creator_Agent\\data\\sales_data.csv"
+    },
+    "query": {
+        "grain": "by COUNTRY",
+        "filters": [
+            "YEAR_ID = 2005"
+        ],
+        "aggregations": [{
+            "name": "Total Sales",
+            "expr": "SUM(SALES)"
+        }],
+        "groupby": [
+            "COUNTRY"
+        ],
+        "sort": [{
+            "by": "Total Sales",
+            "order": "desc"
+        }],
+        "limit": null
+    },
+    "encodings": {
+        "x": {
+            "field": "COUNTRY",
+            "type": "string"
+        },
+        "y": {
+            "field": "Total Sales",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "Total Sales",
+            "type": "quantitative",
+            "legend": true
+        },
+        "facet": {
+            "field": null,
+            "type": "string"
+        }
+    },
+    "columns_used": [{
+            "name": "COUNTRY",
+            "dtype": "string",
+            "semantics": [
+                "geo",
+                "quantity"
+            ],
+            "description": "The country of the customer's address."
+        },
+        {
+            "name": "SALES",
+            "dtype": "float",
+            "semantics": [
+                "date_like",
+                "money"
+            ],
+            "description": "The total sales amount for the specific product line in the order."
+        },
+        {
+            "name": "YEAR_ID",
+            "dtype": "integer",
+            "semantics": [
+                "date_like",
+                "id"
+            ],
+            "description": "The year in which the order was placed."
+        }
+    ],
+    "assumptions": [
+        "Country names are standardized."
+    ],
+    "notes_for_codegen": "Use a color scale to represent sales volume."
+}

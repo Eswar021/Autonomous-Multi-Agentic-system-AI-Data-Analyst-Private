@@ -1,0 +1,335 @@
+{
+  "objective": "analyse sales trends",
+  "overall_rationale": "To understand sales trends, we will analyze sales performance over time, identify top-selling products, and examine sales distribution across different regions. This will involve calculating key performance indicators (KPIs) such as total sales, average order value, and sales growth rate. We will also perform data quality checks to ensure the accuracy and reliability of the analysis.",
+  "kpis": [
+    {
+      "name": "Total Sales",
+      "formula": "SUM(SALES)",
+      "why": "Measures overall revenue generated.",
+      "depends_on_columns": [
+        "SALES"
+      ]
+    },
+    {
+      "name": "Average Order Value",
+      "formula": "SUM(SALES) / COUNT(ORDERNUMBER)",
+      "why": "Indicates the average revenue per order.",
+      "depends_on_columns": [
+        "SALES",
+        "ORDERNUMBER"
+      ]
+    },
+    {
+      "name": "Sales Growth Rate",
+      "formula": "(Current Period Sales - Previous Period Sales) / Previous Period Sales",
+      "why": "Shows the percentage change in sales over time.",
+      "depends_on_columns": [
+        "SALES",
+        "ORDERDATE"
+      ]
+    }
+  ],
+  "analyses": [
+    {
+      "name": "Time Series Analysis",
+      "question": "What are the sales trends over time?",
+      "method": "Aggregate sales data by month and year to identify patterns and seasonality.",
+      "expected_insights": "Identification of peak sales periods, growth trends, and potential seasonality.",
+      "depends_on_columns": [
+        "SALES",
+        "ORDERDATE",
+        "YEAR_ID",
+        "MONTH_ID"
+      ]
+    },
+    {
+      "name": "Product Performance Analysis",
+      "question": "Which products are the top sellers?",
+      "method": "Calculate sales by product line to identify best-performing products.",
+      "expected_insights": "Identification of top-selling product lines and their contribution to overall sales.",
+      "depends_on_columns": [
+        "SALES",
+        "PRODUCTLINE"
+      ]
+    },
+    {
+      "name": "Geographical Sales Analysis",
+      "question": "Where are the sales concentrated geographically?",
+      "method": "Aggregate sales data by country to identify key markets.",
+      "expected_insights": "Identification of top-performing countries and regional sales variations.",
+      "depends_on_columns": [
+        "SALES",
+        "COUNTRY"
+      ]
+    }
+  ],
+  "visualizations": [
+    {
+      "title": "Monthly Sales Trend",
+      "purpose": "Illustrates the change in sales over time.",
+      "why": "Helps identify seasonality and trends in sales.",
+      "type": "line",
+      "data_access": {
+        "file_path": "uploads\\sales_data.csv",
+        "file_abspath": "D:\\Autonomous_Dashboard_Creator_Agent_Production\\uploads\\sales_data.csv"
+      },
+      "query": {
+        "grain": "by MONTH & YEAR",
+        "filters": [],
+        "aggregations": [
+          {
+            "name": "Total Sales",
+            "expr": "SUM(SALES)"
+          }
+        ],
+        "groupby": [
+          "YEAR_ID",
+          "MONTH_ID"
+        ],
+        "sort": [
+          {
+            "by": "YEAR_ID",
+            "order": "asc"
+          },
+          {
+            "by": "MONTH_ID",
+            "order": "asc"
+          }
+        ],
+        "limit": null
+      },
+      "encodings": {
+        "x": {
+          "field": "MONTH_ID",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "Total Sales",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "YEAR_ID",
+          "type": "string",
+          "legend": true
+        },
+        "facet": {
+          "field": null,
+          "type": "string"
+        }
+      },
+      "columns_used": [
+        {
+          "name": "MONTH_ID",
+          "dtype": "integer",
+          "semantics": [
+            "date_like",
+            "id"
+          ],
+          "description": "The month in which the order was placed."
+        },
+        {
+          "name": "SALES",
+          "dtype": "float",
+          "semantics": [
+            "date_like",
+            "money"
+          ],
+          "description": "The total sales amount for the specific product line in the order."
+        },
+        {
+          "name": "YEAR_ID",
+          "dtype": "integer",
+          "semantics": [
+            "date_like",
+            "id"
+          ],
+          "description": "The year in which the order was placed."
+        }
+      ],
+      "assumptions": [
+        "Sales data is consistently recorded each month.",
+        "The dataset includes all sales transactions for the specified period."
+      ],
+      "notes_for_codegen": "Ensure the x-axis displays months in chronological order."
+    },
+    {
+      "title": "Sales by Product Line",
+      "purpose": "Compares sales performance across different product lines.",
+      "why": "Identifies top-selling product categories.",
+      "type": "bar",
+      "data_access": {
+        "file_path": "uploads\\sales_data.csv",
+        "file_abspath": "D:\\Autonomous_Dashboard_Creator_Agent_Production\\uploads\\sales_data.csv"
+      },
+      "query": {
+        "grain": "by PRODUCTLINE",
+        "filters": [],
+        "aggregations": [
+          {
+            "name": "Total Sales",
+            "expr": "SUM(SALES)"
+          }
+        ],
+        "groupby": [
+          "PRODUCTLINE"
+        ],
+        "sort": [
+          {
+            "by": "Total Sales",
+            "order": "desc"
+          }
+        ],
+        "limit": null
+      },
+      "encodings": {
+        "x": {
+          "field": "PRODUCTLINE",
+          "type": "string"
+        },
+        "y": {
+          "field": "Total Sales",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": null,
+          "type": "string",
+          "legend": true
+        },
+        "facet": {
+          "field": null,
+          "type": "string"
+        }
+      },
+      "columns_used": [
+        {
+          "name": "PRODUCTLINE",
+          "dtype": "string",
+          "semantics": [
+            "product"
+          ],
+          "description": "The category of the product."
+        },
+        {
+          "name": "SALES",
+          "dtype": "float",
+          "semantics": [
+            "date_like",
+            "money"
+          ],
+          "description": "The total sales amount for the specific product line in the order."
+        }
+      ],
+      "assumptions": [
+        "Product line categorization is consistent throughout the dataset.",
+        "Sales are accurately attributed to each product line."
+      ],
+      "notes_for_codegen": "Sort bars in descending order of sales."
+    },
+    {
+      "title": "Sales by Country",
+      "purpose": "Shows the distribution of sales across different countries.",
+      "why": "Identifies key markets and regional sales variations.",
+      "type": "map",
+      "data_access": {
+        "file_path": "uploads\\sales_data.csv",
+        "file_abspath": "D:\\Autonomous_Dashboard_Creator_Agent_Production\\uploads\\sales_data.csv"
+      },
+      "query": {
+        "grain": "by COUNTRY",
+        "filters": [],
+        "aggregations": [
+          {
+            "name": "Total Sales",
+            "expr": "SUM(SALES)"
+          }
+        ],
+        "groupby": [
+          "COUNTRY"
+        ],
+        "sort": [
+          {
+            "by": "Total Sales",
+            "order": "desc"
+          }
+        ],
+        "limit": null
+      },
+      "encodings": {
+        "x": {
+          "field": "COUNTRY",
+          "type": "string"
+        },
+        "y": {
+          "field": "Total Sales",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Total Sales",
+          "type": "quantitative",
+          "legend": true
+        },
+        "facet": {
+          "field": null,
+          "type": "string"
+        }
+      },
+      "columns_used": [
+        {
+          "name": "COUNTRY",
+          "dtype": "string",
+          "semantics": [
+            "geo",
+            "quantity"
+          ],
+          "description": "The country of the customer."
+        },
+        {
+          "name": "SALES",
+          "dtype": "float",
+          "semantics": [
+            "date_like",
+            "money"
+          ],
+          "description": "The total sales amount for the specific product line in the order."
+        }
+      ],
+      "assumptions": [
+        "Country names are consistently formatted.",
+        "Sales are accurately attributed to each country."
+      ],
+      "notes_for_codegen": "Use a color scale to represent sales volume for each country."
+    }
+  ],
+  "data_quality_checks": [
+    {
+      "check": "Missing Sales Values",
+      "method": "COUNT(SALES where SALES is NULL)",
+      "tolerance": "COUNT < 1",
+      "columns": [
+        "SALES"
+      ]
+    },
+    {
+      "check": "Invalid Order Dates",
+      "method": "COUNT(ORDERDATE where ORDERDATE is invalid)",
+      "tolerance": "COUNT = 0",
+      "columns": [
+        "ORDERDATE"
+      ]
+    },
+    {
+      "check": "Duplicate Order Numbers",
+      "method": "COUNT(ORDERNUMBER) - COUNT(DISTINCT ORDERNUMBER)",
+      "tolerance": "COUNT = 0",
+      "columns": [
+        "ORDERNUMBER"
+      ]
+    }
+  ],
+  "_meta": {
+    "metadata_path": "metadata\\sales_data_metadata.json",
+    "generated_at": "2025-08-27T15:06:48Z",
+    "objective": "analyse sales trends",
+    "model": "gemini-2.0-flash"
+  }
+}
